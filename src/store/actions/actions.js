@@ -1,14 +1,5 @@
 import * as ACTION_TYPES from './action_types'
 
-export const SUCCESS = {
-  type: ACTION_TYPES.SUCCESS
-}
-
-export const FAILURE = {
-  type: ACTION_TYPES.FAILURE
-}
-
-
 export const success = () => {
   return {
     type: ACTION_TYPES.SUCCESS
@@ -21,6 +12,13 @@ export const failure = () => {
   }
 }
 
+export const all = (val) => {
+  return {
+    type: ACTION_TYPES.ALL,
+    value: !val
+  }
+}
+
 export const user_input = (text) => {
   return {
     type: ACTION_TYPES.USER_INPUT,
@@ -28,43 +26,10 @@ export const user_input = (text) => {
   }
 }
 
-
-export const login_success = () => {
+export const alt_global_state = (val) => {
   return {
-    type: ACTION_TYPES.LOGIN_SUCCESS
+    type: ACTION_TYPES.ALTER_GLOBAL_STATE,
+    val: val
   }
 }
 
-export const login_failure = () => {
-  return {
-    type: ACTION_TYPES.LOGIN_FAILURE
-  }
-}
-
-
-export const add_profile = (profile) => {
-  return {
-    type: ACTION_TYPES.ADD_PROFILE,
-    payload: profile
-  }
-}
-
-export const remove_profile = () => {
-  return {
-    type: ACTION_TYPES.REMOVE_PROFILE
-  }
-}
-
-
-export const inc_global_state = () => {
-  return {
-    type: ACTION_TYPES.INC_GLOBAL_STATE
-  }
-}
-
-
-export const dec_global_state = () => {
-  return {
-    type: ACTION_TYPES.DEC_GLOBAL_STATE
-  }
-}

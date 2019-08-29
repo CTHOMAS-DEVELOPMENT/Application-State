@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import * as ACTIONS from '../store/actions/actions';
 import { connect } from 'react-redux';
 
-
-
 class Form1 extends Component {
 
-  state ={
-    value: ''
+  constructor(props) {
+    super();
+    //Initialise state
+    this.state = {
+      value: ''
+    };
   }
 
   handleChange = (event) => (
@@ -21,22 +23,21 @@ class Form1 extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label> Input </label>
-          <input id="name" onChange={this.handleChange} type="text" />
-          <button type="submit"> Submit </button>
+      <>
+      <div className='item'>
+        <form onSubmit={this.handleSubmit} className='submission-form'>
+          <input autoFocus id="name" onChange={this.handleChange} type="text" />
+          <button className='sendBtn' type="submit"> Submit </button>
         </form>
-        <br />
-        <h3>React State:</h3>
-        <p>{this.state.value}</p>
-        <br />
-        <h3>Redux State:</h3>
-        <p>{this.props.user_text}</p>
       </div>
+      <div className='item'>
+      {this.state.value?<span className='vhalflinehttext'>Local State:{this.state.value}</span>:''}
+      <br/>
+      {this.props.user_text?<span className='vhalflinehttext'>Application State:{this.props.user_text}</span>:''}
+      </div>   
+      </>
     )}
 }
-
 
 function mapStateToProps(state) {
   return {
@@ -49,6 +50,5 @@ function mapDispatchToProps(dispatch) {
     input_action_creator: (text) => dispatch(ACTIONS.user_input(text))
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form1);

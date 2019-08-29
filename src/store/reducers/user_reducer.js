@@ -1,10 +1,8 @@
 import * as ACTION_TYPES from '../actions/action_types'
 
-
 const initialState = {
   user_text: ''
 }
-
 
 const UserReducer = (state = initialState, action) => {
     switch(action.type) {

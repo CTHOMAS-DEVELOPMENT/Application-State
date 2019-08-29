@@ -1,7 +1,7 @@
 import * as ACTION_TYPES from '../actions/action_types'
 
 const initialState = {
-  stateprop1: false,
+  signalon: false,
 }
 
 const Reducer1 = (state = initialState, action) => {
@@ -9,12 +9,17 @@ const Reducer1 = (state = initialState, action) => {
       case ACTION_TYPES.SUCCESS:
         return {
           ...state,
-          stateprop1: true
+          signalon: true
         }
       case ACTION_TYPES.FAILURE:
         return {
           ...state,
-          stateprop1: false
+          signalon: false
+        }
+      case ACTION_TYPES.ALL:
+        return {
+          ...state,
+          signalon: action.value
         }
       default:
         return state

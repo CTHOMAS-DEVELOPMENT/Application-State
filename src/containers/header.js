@@ -1,52 +1,33 @@
-import React, { Component } from 'react';
+import React, { Component  } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-
 class Header extends Component {
+  constructor(props) {
+    super();
+    //Initialise state
+    this.state = {
+      selected:"Home"
+    };
+  } 
+  menuItems=["Home","Container (Using Redux)","Hooks (Using Context)","Form 1","List"];
+  menuRoutes=["/",  "/container1",            "/hookscontainer",      "/form1","/renderlist"];
+  setCurrent=(val)=>{
+    this.setState({selected: val});
+  }
 
   render() {
-    return(
-        <div>
-          <Link to='/' style={{padding: '5px'}}>
-            Home
-          </Link>
-          <Link to='/profile' style={{padding: '5px'}}>
-            Profile
-          </Link>
-          <Link to='/component1' style={{padding: '5px'}}>
-            Component 1
-          </Link>
-          <Link to='/container1' style={{padding: '5px'}}>
-            Container 1
-          </Link>
-          <Link to='/form1' style={{padding: '5px'}}>
-            Form 1
-          </Link>
-          <Link to='/renderlist' style={{padding: '5px'}}>
-             List
-          </Link>
-          <Link to='/hookscontainer' style={{padding: '5px'}}>
-             Hooks
-          </Link>
-          <Link to='/privateroute' style={{padding: '5px'}}>
-            Private Route
-          </Link>
-          {!this.props.is_authenticated
-            ? <button onClick={() => this.props.auth.login()}>Login</button>
-            : <button onClick={() => this.props.auth.logout()}>Logout</button>
+      return(
+      <div className='item detaildiv'>
+        <ul className="choicebuttons">
+          {
+            this.menuItems.map((item, index) =>
+            <li key={index}>
+              <Link to={this.menuRoutes[index]} className={this.state.selected === item ? 'active' : 'dormant'} onClick={() => this.setCurrent(item)}>{item}</Link>
+            </li>)
           }
-          <br />
-          <br />
-          <br />
-        </div>
-    )}
-}
-
-function mapStateToProps(state) {
-  return {
-    is_authenticated: state.auth_reducer.is_authenticated
+        </ul>
+      </div>
+    );
   }
 }
 
-export default connect(mapStateToProps)(Header);
+export default Header;

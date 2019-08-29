@@ -2,48 +2,51 @@ import React, { Component } from 'react';
 import * as ACTIONS from '../store/actions/actions';
 import { connect } from 'react-redux';
 
-
-
 class Container1 extends Component {
-
+  constructor(props) {
+    super();
+    //Initialise state
+    this.state = {
+      signalon:false
+    };
+}
   render() {
     return (
-      <div>
-        <button onClick={() => console.log(this.props.stateprop1)}> Get State </button>
-        <button onClick={() => this.props.action1()}> Dispatch Action 1 </button>
-        <button onClick={() => this.props.action2()}>Dispatch Action 2 </button>
-        <button onClick={() => this.props.action_creator1()}>Dispatch Action Creator 1 </button>
-        <button onClick={() => this.props.action_creator2()}>Dispatch Action Creator 2 </button>
-        {this.props.user_text
-          ? <h3> {this.props.user_text} </h3>
-          : <h3> No User Text </h3>
+      <>
+      <div className='item'>
+        <form className='submission-form'>
+        {this.props.signalon
+        ? 
+        <button className='sendBtn' onClick={(e) => {e.preventDefault();this.props.action_false()}}>Make False</button>
+        :
+        <button className='sendBtn' onClick={(e) => {e.preventDefault();this.props.action_true()}}>Make True</button>
         }
-        <br />
-        {this.props.stateprop1
-          ? <p> stateprop1 is true </p>
-          : <p> stateprop1 is false </p>
+        <button className='sendBtn' onClick={(e) => {e.preventDefault();this.props.action_toggle(this.props.signalon)}}>Toggle Boolean</button>
+        </form>
+      </div>
+      <div className='item vcentretext'>
+        {this.props.signalon
+          ? <span>Boolean is true</span>
+          : <span>Boolean is false</span>
         }
       </div>
+      </>
     )}
 }
 
-
 function mapStateToProps(state) {
   return {
-    stateprop1: state.reducer1.stateprop1,
-    user_text: state.user_reducer.user_text
+    signalon: state.reducer1.signalon
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    action1: () => dispatch(ACTIONS.SUCCESS),
-    action2: () => dispatch(ACTIONS.FAILURE),
-    action_creator1: () => dispatch(ACTIONS.success()),
-    action_creator2: () => dispatch(ACTIONS.failure())
+    action_true: () => dispatch(ACTIONS.success()),
+    action_false: () => dispatch(ACTIONS.failure()),
+    action_toggle: (val) => dispatch(ACTIONS.all(val))
+       
   }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container1);

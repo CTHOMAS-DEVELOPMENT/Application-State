@@ -1,36 +1,26 @@
 import React, { useReducer } from 'react';
 import Routes from './routes';
 import Context from './utils/context';
-import * as ACTIONS from './store/actions/actions';
-import * as HooksReducer1 from './store/reducers/hooks_reducer';
-
-
+import {alt_global_state} from './store/actions/actions';
+import {HooksReducer, initialState} from './store/reducers/hooks_reducer';
 
 const App = () => {
-  const [valueGlobal, dispatchActionsGlobal] = useReducer(HooksReducer1.HooksReducer1, HooksReducer1.initialState)
+  const [valueGlobal, dispatchActionsGlobal] = useReducer(HooksReducer, initialState)
 
-    const incrementGlobalValue = () => {
-      dispatchActionsGlobal(ACTIONS.inc_global_state() )
-    }
-
-    const decrementGlobalValue = () => {
-      dispatchActionsGlobal(ACTIONS.dec_global_state() )
-    }
-
-    return(
-      <div>
-        React
-        <Context.Provider
+  const alterGlobalValue = (val) => {
+    dispatchActionsGlobal(alt_global_state(val.formvalue) )
+  }
+  return(
+    <>
+      <Context.Provider
                   value={{
                     valueGlobalState: valueGlobal,
-                    addGlobalValue: () => incrementGlobalValue(),
-                    decGlobalValue: () => decrementGlobalValue()
+                    altGlobalValue: (val) => alterGlobalValue(val)
                   }}>
-            <Routes />
-          </Context.Provider>
-      </div>
-    )
+      <Routes />
+      </Context.Provider>
+    </>
+  )
 }
-
 
 export default App;
